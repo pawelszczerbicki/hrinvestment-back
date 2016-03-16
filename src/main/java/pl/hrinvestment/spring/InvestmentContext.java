@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("pl.hrinvestment.")
+@ComponentScan("pl.hrinvestment")
 @PropertySource("classpath:app.properties")
 public class InvestmentContext {
 }
