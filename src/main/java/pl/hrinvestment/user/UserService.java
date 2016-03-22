@@ -10,10 +10,10 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        return new User();
     }
 
     public Optional<User> byUsername(String username) {
-        return null;
+        return Optional.of(new User());
     }
 }

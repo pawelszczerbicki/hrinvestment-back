@@ -5,9 +5,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class User implements UserDetails{
+public class User implements UserDetails {
+
     private String username;
-    private String password;
+    private String password = "$2a$10$yXKzeZ9gmQatawRyj7Xe4OI.67jxe.Fa7L/xnePJnxvQCBttz2L66";
+
+    public User() {
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public String getUsername() {
         return username;
@@ -15,22 +23,22 @@ public class User implements UserDetails{
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
