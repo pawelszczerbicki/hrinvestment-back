@@ -9,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import static pl.hrinvestment.auth.TokenAuthenticationService.AUTH_HEADER_NAME;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan("pl.hrinvestment")
@@ -25,6 +27,6 @@ public class InvestmentContext extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         //TODO reconfigure CORS after test phase
-        registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "HEAD", "DELETE");
+        registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "HEAD", "DELETE").exposedHeaders(AUTH_HEADER_NAME);
     }
 }
