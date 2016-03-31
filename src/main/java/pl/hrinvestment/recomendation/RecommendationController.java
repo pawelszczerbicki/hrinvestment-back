@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.hrinvestment.amazon.S3Service;
 import pl.hrinvestment.config.Config;
 
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import static pl.hrinvestment.config.Keys.FILES_BUCKET;
@@ -25,6 +28,12 @@ public class RecommendationController {
 
     @Autowired
     private Config config;
+
+    @RequestMapping(method = GET)
+    public List<Worker> all() {
+        return dao.findAll();
+    }
+
 
     @RequestMapping(value = "/worker", method = POST)
     public Worker recommendWorker(@RequestBody Worker w) {
