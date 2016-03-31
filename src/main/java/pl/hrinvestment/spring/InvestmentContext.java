@@ -1,5 +1,6 @@
 package pl.hrinvestment.spring;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -10,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -33,6 +36,16 @@ public class InvestmentContext extends WebMvcConfigurerAdapter {
 
     @Autowired
     private Config c;
+
+    @Bean
+    public AmazonS3Client amazonS3Client() {
+        return new AmazonS3Client();
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
+    }
 
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {

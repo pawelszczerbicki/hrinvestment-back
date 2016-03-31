@@ -16,4 +16,8 @@ public class Config {
     public Integer asInt(String key) {
         return Integer.parseInt(get(key));
     }
+
+    public boolean asBoolean(String key) {
+        return Boolean.parseBoolean(get(key));
+    }
 }

@@ -15,6 +15,7 @@ public class Worker {
     private String job;
     private String phone;
     private String address;
+    private String fileUrl;
 
     public String getId() {
         return id;
@@ -78,5 +79,13 @@ public class Worker {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 }
