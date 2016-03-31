@@ -12,4 +12,8 @@ public class Config {
     public String get(String key) {
         return env.getProperty(key);
     }
+
+    public Integer asInt(String key) {
+        return Integer.parseInt(get(key));
+    }
 }

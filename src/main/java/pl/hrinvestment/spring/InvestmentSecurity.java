@@ -36,6 +36,7 @@ public class InvestmentSecurity extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(statelessLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(statelessAuthenticationFilter, AbstractPreAuthenticatedProcessingFilter.class)
                 .authorizeRequests()
+                .antMatchers("/recommend/company").fullyAuthenticated()
                 .anyRequest().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/auth/forbidden")
                 .and().csrf().disable();

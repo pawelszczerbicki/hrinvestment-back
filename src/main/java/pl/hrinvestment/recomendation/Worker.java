@@ -1,7 +1,13 @@
 package pl.hrinvestment.recomendation;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Worker {
 
+    @Id
+    private String id;
     private String name;
     private String surname;
     private String city;
@@ -9,6 +15,14 @@ public class Worker {
     private String job;
     private String phone;
     private String address;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
