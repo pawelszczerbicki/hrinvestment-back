@@ -13,7 +13,6 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import static pl.hrinvestment.config.Keys.FILES_BUCKET;
 
 @RestController
@@ -45,7 +44,7 @@ public class RecommendationController {
         return dao.save(w);
     }
 
-    @RequestMapping(value = "/{id}/file", method = PUT)
+    @RequestMapping(value = "/{id}/file", method = POST)
     public Worker uploadFile(MultipartFile file, @PathVariable String id) {
         Worker worker = dao.findOne(id).get();
         worker.setFileUrl(s3.upload(file, id, config.get(FILES_BUCKET)));
