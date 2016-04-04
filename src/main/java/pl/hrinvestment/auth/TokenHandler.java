@@ -42,7 +42,7 @@ public final class TokenHandler {
         try {
             Claims body = parser().setSigningKey(secret).parseClaimsJws(token).getBody();
             LocalDateTime expires = ofInstant(ofEpochMilli(body.getExpiration().getTime()), UTC);
-            return now().isAfter(expires) ? empty() : userService.byUsername(body.getSubject());
+            return now().isAfter(expires) ? empty() : Optional.of(userService.loadUserByUsername(body.getSubject()));
         } catch (Exception e) {
             logger.error("Can not parse token!", e);
             return empty();

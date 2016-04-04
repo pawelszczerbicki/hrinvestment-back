@@ -1,5 +1,6 @@
 package pl.hrinvestment.auth;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.hrinvestment.user.User;
@@ -9,8 +10,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class AuthController {
 
+    @Autowired
+    private SecurityService securityService;
+
     @RequestMapping(value = "/login", method = POST)
     public User login() {
-        return new User("test user");
+        return securityService.currentUser().get();
     }
 }

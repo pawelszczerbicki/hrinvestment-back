@@ -1,24 +1,64 @@
 package pl.hrinvestment.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Document
 public class User implements UserDetails {
 
-    private String username;
-    private String password = "$2a$10$yXKzeZ9gmQatawRyj7Xe4OI.67jxe.Fa7L/xnePJnxvQCBttz2L66";
+    @Id
+    private String id;
 
-    public User() {
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    private String name;
+
+    private String surname;
+
+    public String getId() {
+        return id;
     }
 
-    public User(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     @Override
@@ -46,7 +86,13 @@ public class User implements UserDetails {
         return null;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }
