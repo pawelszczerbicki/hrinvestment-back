@@ -16,6 +16,7 @@ import pl.hrinvestment.auth.StatelessAuthenticationFilter;
 import pl.hrinvestment.auth.StatelessLoginFilter;
 import pl.hrinvestment.user.UserService;
 
+import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
@@ -40,6 +41,7 @@ public class InvestmentSecurity extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(statelessLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(statelessAuthenticationFilter, AbstractPreAuthenticatedProcessingFilter.class)
                 .authorizeRequests()
+                .antMatchers(OPTIONS, "/**").permitAll()
                 .antMatchers("/recommend/company").fullyAuthenticated()
                 .anyRequest().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/auth/forbidden")
