@@ -16,6 +16,7 @@ public class Worker {
     private String phone;
     private String address;
     private String fileUrl;
+    private String recommendedBy;
 
     public String getId() {
         return id;
@@ -87,5 +88,13 @@ public class Worker {
 
     public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
+    }
+
+    public String getRecommendedBy() {
+        return recommendedBy;
+    }
+
+    public void setRecommendedBy(String recommendedBy) {
+        this.recommendedBy = recommendedBy;
     }
 }
