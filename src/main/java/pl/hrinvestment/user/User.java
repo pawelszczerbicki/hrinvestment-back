@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Document
 public class User implements UserDetails {
@@ -23,6 +27,8 @@ public class User implements UserDetails {
     private String name;
 
     private String surname;
+
+    private List<Permission> permissions;
 
     public String getId() {
         return id;
@@ -62,28 +68,33 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return permissions.stream().map(p -> new SimpleGrantedAuthority(p.toString())).collect(toList());
     }
 
     @JsonIgnore
@@ -95,5 +106,13 @@ public class User implements UserDetails {
     @JsonIgnore
     public String getUsername() {
         return email;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
     }
 }
