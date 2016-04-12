@@ -9,9 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.hrinvestment.amazon.S3Service;
 import pl.hrinvestment.auth.SecurityService;
 import pl.hrinvestment.config.Config;
+import pl.hrinvestment.ip.IpInfo;
+import pl.hrinvestment.ip.IpService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -36,6 +39,9 @@ public class RecommendationController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private IpService ipService;
+
     @RequestMapping(method = GET)
     public List<Worker> all() {
         return dao.findAll();
@@ -44,7 +50,9 @@ public class RecommendationController {
     @RequestMapping(value = "/worker", method = POST)
     public Worker recommendWorker(@RequestBody Worker w) {
         w.setRecommendedBy(securityService.currentUser().get().getEmail());
-        w.setIpAddress(request.getRemoteAddr());
+        Optional<IpInfo> ip = ipService.getInfo(request.getRemoteAddr());
+        if (ip.isPresent())
+            w.setIp(ip.get());
         return dao.save(w);
     }
 
