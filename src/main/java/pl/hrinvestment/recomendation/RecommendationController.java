@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.String.format;
+import static org.apache.commons.io.FilenameUtils.getExtension;
+import static org.springframework.util.StringUtils.isEmpty;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static pl.hrinvestment.config.Keys.FILES_BUCKET;
@@ -64,7 +67,11 @@ public class RecommendationController {
     @RequestMapping(value = "/{id}/file", method = POST)
     public Worker uploadFile(MultipartFile file, @PathVariable String id) {
         Worker worker = dao.findOne(id).get();
-        worker.setFileUrl(s3.upload(file, id, config.get(FILES_BUCKET)));
+        worker.setFileUrl(s3.upload(file, filename(id, file.getOriginalFilename()), config.get(FILES_BUCKET)));
         return dao.save(worker);
+    }
+
+    private String filename(String id, String name) {
+        return isEmpty(name) ? id : format("%s.%s", id, getExtension(name));
     }
 }
