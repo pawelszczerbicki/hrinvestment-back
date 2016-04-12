@@ -1,9 +1,13 @@
 package pl.hrinvestment.recomendation;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Document
+@JsonInclude(NON_NULL)
 public class Worker {
 
     @Id
@@ -17,6 +21,7 @@ public class Worker {
     private String address;
     private String fileUrl;
     private String recommendedBy;
+    private String ipAddress;
 
     public String getId() {
         return id;
@@ -96,5 +101,13 @@ public class Worker {
 
     public void setRecommendedBy(String recommendedBy) {
         this.recommendedBy = recommendedBy;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }

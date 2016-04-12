@@ -10,6 +10,7 @@ import pl.hrinvestment.amazon.S3Service;
 import pl.hrinvestment.auth.SecurityService;
 import pl.hrinvestment.config.Config;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -32,6 +33,9 @@ public class RecommendationController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping(method = GET)
     public List<Worker> all() {
         return dao.findAll();
@@ -39,7 +43,8 @@ public class RecommendationController {
 
     @RequestMapping(value = "/worker", method = POST)
     public Worker recommendWorker(@RequestBody Worker w) {
-        w.setRecommendedBy(securityService.currentUser().get().getId());
+        w.setRecommendedBy(securityService.currentUser().get().getEmail());
+        w.setIpAddress(request.getRemoteAddr());
         return dao.save(w);
     }
 
