@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.hrinvestment.ip.IpInfo;
 
+import java.time.Instant;
+
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Document
@@ -23,6 +25,7 @@ public class Worker {
     private String fileUrl;
     private String recommendedBy;
     private IpInfo ip;
+    private Instant createdAt;
 
     public String getId() {
         return id;
@@ -110,5 +113,13 @@ public class Worker {
 
     public void setIp(IpInfo ip) {
         this.ip = ip;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getCreatedAtMilli() {
+        return createdAt != null ? createdAt.toEpochMilli() : null;
     }
 }
